@@ -17,7 +17,25 @@ const HALF_LIFE_PERIOD = 5730;
  * dateSample('WOOT!') => false
  *
  */
-export default function dateSample(/* sampleActivity */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+
+ function isFloat(n) {
+  return n === +n && n !== (n|0);
+}
+
+function isInteger(n) {
+  return n === +n && n === (n|0);
+}
+
+export default function dateSample( sampleActivity ) {
+  if (arguments.length == 0 || typeof sampleActivity !== 'string' || sampleActivity.trim() == '') {
+    return false;
+  } else {
+    let num = Number(sampleActivity);
+    if ((Number.isInteger(num) || (!Number.isInteger(num) && isFloat(num))) && (num < 15 && num > 0)) {
+      return Math.ceil(Math.log(MODERN_ACTIVITY / +sampleActivity) / (0.693 / HALF_LIFE_PERIOD));
+    } else 
+    {
+      return false;
+    }
+  }
 }
